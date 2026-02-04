@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "node src/index.js",
+    "migrate": "node src/db/migrations.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "node-cron": "^4.2.1",
+    "node-telegram-bot-api": "^0.67.0",
+    "sqlite3": "^5.1.7"
+  }
+}
