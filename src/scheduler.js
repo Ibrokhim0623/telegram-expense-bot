@@ -18,7 +18,7 @@ const CATEGORY_LIMITS = {
  */
 function startDailyReminder(bot) {
   // TEST uchun 18:15 ga sozlab qo‘yiladi
-  cron.schedule("15 18 * * *", async () => {
+  cron.schedule("41 17 * * *", async () => {
     console.log("📬 Daily reminder ishlayapti");
 
     try {

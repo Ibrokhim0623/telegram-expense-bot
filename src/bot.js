@@ -76,7 +76,10 @@ Bot avtomatik kategoriya aniqlaydi 🙂`,
 }
 
 // -------------------- BOT INIT --------------------
-const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+const TOKEN =
+  process.env.BOT_TOKEN || "8324001776:AAFSGXeYxg_zvRVDjDKaGWxZEinK3yLl7-8";
+
+const bot = new TelegramBot(TOKEN, { polling: true });
 
 // Daily reminder (cron job)
 startDailyReminder(bot);
