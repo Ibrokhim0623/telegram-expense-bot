@@ -1,6 +1,5 @@
 const db = require("../db");
 
-// User bor-yo‘qligini tekshirish
 function getUserByTelegramId(telegramId) {
   return new Promise((resolve, reject) => {
     db.get(
@@ -14,7 +13,6 @@ function getUserByTelegramId(telegramId) {
   });
 }
 
-// Yangi user yaratish
 function createUser({ telegramId, firstName }) {
   return new Promise((resolve, reject) => {
     db.run(
@@ -31,7 +29,6 @@ function createUser({ telegramId, firstName }) {
   });
 }
 
-// Onboarding tugadi deb belgilash
 function finishOnboarding(telegramId) {
   return new Promise((resolve, reject) => {
     db.run(

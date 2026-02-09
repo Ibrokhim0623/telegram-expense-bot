@@ -122,8 +122,6 @@ function getMonthDailyCategoryBreakdown(telegramId) {
   });
 }
 
-// -------------------- NEW FUNCTION --------------------
-// Barcha foydalanuvchilarni olish (cron job uchun)
 function getAllUsers() {
   return new Promise((resolve, reject) => {
     const query = `
@@ -133,12 +131,11 @@ function getAllUsers() {
 
     db.all(query, [], (err, rows) => {
       if (err) return reject(err);
-      resolve(rows); // [{ telegramId: 12345 }, { telegramId: 67890 }]
+      resolve(rows);
     });
   });
 }
 
-// -------------------- EXPORT --------------------
 module.exports = {
   saveExpense,
   getTodayExpenses,

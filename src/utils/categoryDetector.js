@@ -8,6 +8,7 @@ const CATEGORY_KEYWORDS = {
     "avtobus",
     "uber",
     "yandex",
+    "yo'lkira",
   ],
   Yegulik: [
     "ovqat",
@@ -32,8 +33,10 @@ const CATEGORY_KEYWORDS = {
     "sut",
     "qatiq",
     "kefir",
+    "bozorlik",
   ],
-  Sport: ["futbol", "tennis"],
+  Sport: ["futbol", "tennis", "billiard"],
+  "Kommunal to'lovlar": ["svet", "gaz", "sovuq suv", "elektr", "tok"],
 };
 
 function detectCategory(text) {

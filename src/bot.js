@@ -27,7 +27,7 @@ const {
 const formatProfile = require("./utils/formatProfile");
 
 // -------------------- USER SERVICE --------------------
-// Yangi user qo‘shish va yangilash funksiyalari
+
 const db = require("./db");
 
 function updateFirstName(telegramId, first_name) {
@@ -81,15 +81,13 @@ const TOKEN =
 
 const bot = new TelegramBot(TOKEN, { polling: true });
 
-// Daily reminder (cron job)
 startDailyReminder(bot);
 
 console.log("🤖 Bot ishga tushdi");
 
 // -------------------- USER STATE --------------------
-const userState = {}; // { [telegramId]: { awaitingName: true } }
+const userState = {};
 
-// -------------------- /start --------------------
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
   const telegramId = String(msg.from.id);
@@ -98,7 +96,6 @@ bot.onText(/\/start/, async (msg) => {
   try {
     let user = await getUserByTelegramId(telegramId);
 
-    // Agar user yo‘q bo‘lsa → yaratamiz
     if (!user) {
       await createUser({ telegramId, firstName });
 
@@ -114,12 +111,10 @@ masalan: taksi 5000`,
       );
     }
 
-    // Agar onboarding tugagan bo‘lsa → bot info
     if (user.onboarding_step === "done") {
       return sendBotInfo(bot, chatId, user.first_name);
     }
 
-    // Agar onboarding hali tugamagan bo‘lsa
     await finishOnboarding(telegramId);
     sendBotInfo(bot, chatId, user.first_name);
   } catch (err) {
@@ -128,7 +123,6 @@ masalan: taksi 5000`,
   }
 });
 
-// -------------------- /today --------------------
 bot.onText(/\/today/, async (msg) => {
   const chatId = msg.chat.id;
   const telegramId = String(msg.from.id);
@@ -150,7 +144,6 @@ bot.onText(/\/today/, async (msg) => {
   }
 });
 
-// -------------------- /week --------------------
 bot.onText(/\/week/, async (msg) => {
   const chatId = msg.chat.id;
   const telegramId = String(msg.from.id);
@@ -172,7 +165,6 @@ bot.onText(/\/week/, async (msg) => {
   }
 });
 
-// -------------------- /month --------------------
 bot.onText(/\/month/, async (msg) => {
   const chatId = msg.chat.id;
   const telegramId = String(msg.from.id);
@@ -214,7 +206,6 @@ bot.onText(/\/profile/, async (msg) => {
   }
 });
 
-// -------------------- MESSAGE HANDLER --------------------
 bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
   const telegramId = String(msg.from.id);
@@ -222,7 +213,6 @@ bot.on("message", async (msg) => {
   const state = userState[telegramId];
 
   try {
-    // -------------------- ONBOARDING: NAME --------------------
     if (state && state.awaitingName) {
       if (text === "/skip") {
         await updateOnboardingStep(telegramId, "completed");
@@ -242,8 +232,7 @@ bot.on("message", async (msg) => {
       return;
     }
 
-    // -------------------- EXPENSE PARSING --------------------
-    if (!text || text.startsWith("/")) return; // komandalarni o'tkazib yuboramiz
+    if (!text || text.startsWith("/")) return;
 
     const parsed = parseExpenseMessage(text);
 
